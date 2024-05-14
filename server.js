@@ -1,13 +1,15 @@
 const express = require('express');
 const path = require('path');
 const testmonialsRoutes = require('./routes/testmonials.routes');
+const concertsRoutes = require('./routes/concerts.routes');
 
 const app = express();
 
 app.use(express.static(path.join(__dirname, '/public')));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use('/api', testmonialsRoutes)
+app.use('/api', testmonialsRoutes);
+app.use('/api', concertsRoutes);
 
 
 app.listen(8000, () => {
