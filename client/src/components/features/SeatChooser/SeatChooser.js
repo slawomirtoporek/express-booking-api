@@ -12,19 +12,16 @@ const SeatChooser = ({ chosenDay, chosenSeat, updateSeat }) => {
   
   useEffect(() => {
     dispatch(loadSeatsRequest());
-    startTimer();
+    if (!timer) {
+      const intervalId = setInterval(() => {
+        dispatch(loadSeatsRequest());
+      }, 120000);
+      setTimer(intervalId);
+    }
     return () => {
-      if(timer) clearInterval(timer);
+      if (timer) clearInterval(timer);
     };
-  }, [dispatch]);
-
-  const startTimer = () => {
-    if (timer) clearInterval(timer);
-
-    setTimer(setInterval(() => {
-      dispatch(loadSeatsRequest());
-    }, 120000));
-  };
+  }, [dispatch, timer]);
 
   const isTaken = (seatId) => {
     return (seats.some(item => (item.seat === seatId && item.day === chosenDay)));

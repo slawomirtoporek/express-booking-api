@@ -26,7 +26,7 @@ app.use(express.static(path.join(__dirname, '/img')));
 
 router.route('/concerts').get((req, res) => {
   if (db.concerts.length === 0) {
-    return res.status(404).send({ message: 'No concerts found' });
+    return res.status(404).json({ message: 'No concerts found' });
   } else {
     res.json(db.concerts);
   };
@@ -36,9 +36,9 @@ router.route('/concerts/:id').get((req, res) => {
   const id = req.params.id;
   const concert = db.concerts.find(data => data.id.toString() === String(id));
   if (!concert) {
-    res.status(404).send({ message: 'Concert not found' });
+    res.status(404).json({ message: 'Concert not found' });
   } else {
-    res.send(concert);
+    res.json(concert);
   };
 });
 
@@ -50,12 +50,12 @@ router.route('/concerts').post(upload.single('image'), (req, res) => {
   if (!isNaN(price) && !isNaN(day)) {
     if (performer && genre && price && day && image) {
       db.concerts.push({ id, performer, genre, price, day, image: newpath });
-      res.send({ message: 'OK' });
+      res.json({ message: 'OK' });
     } else {
-      res.status(400).send({ message: 'All fields are required' });
+      res.status(400).json({ message: 'All fields are required' });
     }
   } else {
-    res.status(400).send({ message: 'Price and day must be numbers' });
+    res.status(400).json({ message: 'Price and day must be numbers' });
   };
 });
 
@@ -64,9 +64,9 @@ router.route('/concerts/:id').delete((req, res) => {
   const index = db.concerts.findIndex(data =>  data.id.toString() === String(id));
   if (index !== -1) {
     db.concerts = db.concerts.filter(data => data.id.toString() !== String(id));
-    res.send({ message: 'OK' });
+    res.json({ message: 'OK' });
   } else {
-    res.status(404).send({ message: 'Concerts not found' });
+    res.status(404).json({ message: 'Concerts not found' });
   };
 });
 
@@ -80,15 +80,15 @@ router.route('/concerts/:id').put(upload.single('image'), (req, res) => {
     if (!isNaN(price) && !isNaN(day)) {
       if (performer && genre && price && day && image) {
         db.concerts[index] = { ...db.concerts[index], performer, genre, price, day, image: newpath };
-        res.send({ message: 'OK' });
+        res.json({ message: 'OK' });
       } else {
-        res.status(404).send({ message: 'All fields are required' });
+        res.status(404).json({ message: 'All fields are required' });
       };
     } else {
-      res.status(400).send({ message: 'Price and day must be numbers' });
+      res.status(400).json({ message: 'Price and day must be numbers' });
     };
   } else {
-    res.status(404).send({ message: 'Concert not found' });
+    res.status(404).json({ message: 'Concert not found' });
   };
 });
 
