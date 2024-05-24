@@ -12,6 +12,10 @@ app.use(express.static(path.join(__dirname, '/client/build')));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
+app.use((req, res, next) => {
+  req.io = io;
+  next();
+});
 app.use('/api', testmonialsRoutes);
 app.use('/api', concertsRoutes);
 app.use('/api', seatsRoutes);
@@ -33,4 +37,5 @@ const io = socket(server);
 
 io.on('connection', (socket) => {
   console.log('New socket!');
+  console.log(socket.id);
 }); 
