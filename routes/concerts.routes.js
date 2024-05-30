@@ -1,5 +1,4 @@
 const express = require('express');
-const db = require('../db/db');
 const uuid = require('uuid');
 const multer = require('multer');
 const path = require('path');
