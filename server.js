@@ -30,7 +30,10 @@ app.use((req, res) => {
   res.status(404).json('Not found...');
 });
 
-mongoose.connect('mongodb://0.0.0.0:27017/NewWaveDB', { useNewUrlParser: true });
+mongoose.connect(
+  'mongodb+srv://toporekslawomir:z698iPAwqggXI4mO@clusterO.rimjfuu.mongodb.net/NewWaveDB?retryWrites=true&w=majority&appName=Cluster0', 
+  { useNewUrlParser: true }
+);
 const db = mongoose.connection;
 
 db.once('open', () => {
