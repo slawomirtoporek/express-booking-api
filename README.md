@@ -1,1 +1,1 @@
-https://2aa7d9f6-fa33-4c03-88c7-c0659bd25aff-00-60lbkamzr5j7.spock.replit.dev/
+https://10b60246-a6db-473b-9921-80dd60db8d64-00-1j3cxv1t77fgj.janeway.replit.dev/
